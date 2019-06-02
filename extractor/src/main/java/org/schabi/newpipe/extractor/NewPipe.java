@@ -58,6 +58,11 @@ public class NewPipe {
                 return service;
             }
         }
+        for (StreamingService service : ServiceList.EXTRA_SERVICES) {
+            if (service.getServiceId() == serviceId) {
+                return service;
+            }
+        }
         throw new ExtractionException("There's no service with the id = \"" + serviceId + "\"");
     }
 
@@ -72,6 +77,11 @@ public class NewPipe {
 
     public static StreamingService getServiceByUrl(String url) throws ExtractionException {
         for (StreamingService service : ServiceList.all()) {
+            if (service.getLinkTypeByUrl(url) != StreamingService.LinkType.NONE) {
+                return service;
+            }
+        }
+        for (StreamingService service : ServiceList.EXTRA_SERVICES) {
             if (service.getLinkTypeByUrl(url) != StreamingService.LinkType.NONE) {
                 return service;
             }
